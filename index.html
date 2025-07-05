@@ -1,1 +1,211 @@
-
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>уёбища.com</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background: linear-gradient(to right, #ff00cc, #33cc33);
+            color: white;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            overflow-x: hidden;
+            user-select: none;
+        }
+        
+        h1 {
+            font-size: 3rem;
+            text-shadow: 3px 3px 0 #000;
+            animation: glitch 1s infinite;
+        }
+        
+        .photo-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .photo {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border: 5px dashed black;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .photo:hover {
+            transform: rotate(10deg) scale(1.1);
+            filter: hue-rotate(90deg);
+        }
+        
+        .game-box {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin: 20px auto;
+            max-width: 300px;
+        }
+        
+        button {
+            background: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        
+        button:hover {
+            background: #ff00cc;
+            transform: skewX(-10deg);
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-3px, 3px); }
+            40% { transform: translate(-3px, -3px); }
+            60% { transform: translate(3px, 3px); }
+            80% { transform: translate(3px, -3px); }
+            100% { transform: translate(0); }
+        }
+        
+        /* Мобильный адаптив */
+        @media (max-width: 600px) {
+            body {
+                background: linear-gradient(to bottom, #ff00cc, #33cc33);
+            }
+            
+            .photo {
+                width: 100px;
+                height: 100px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <h1>уёбища.com</h1>
+    <p>Добро пожаловать в ебучий учебник!</p>
+    
+    <div class="photo-container">
+        <!-- Твои 5 фото (теперь они локальные, в папке /images/) -->
+        <img src="images/var1.jpg" class="photo" id="var1" onclick="photoClick(this)">
+        <img src="images/var2.jpg" class="photo" id="var2" onclick="photoClick(this)">
+        <img src="images/var3.jpg" class="photo" id="var3" onclick="photoClick(this)">
+        <img src="images/var4.jpg" class="photo" id="var4" onclick="photoClick(this)">
+        <img src="images/var5.jpg" class="photo" id="var5" onclick="photoClick(this)">
+    </div>
+    
+    <div class="game-box">
+        <h3>Мини-игры:</h3>
+        <button onclick="startGame('difference')">Найди 10 отличий</button>
+        <button onclick="startGame('puzzle')">Собери пазл (не получится)</button>
+        <button onclick="startGame('iq')">Тест на IQ</button>
+    </div>
+    
+    <div id="difference-game" class="hidden">
+        <h2>Найди отличия (их нет)</h2>
+        <img src="https://i.imgflip.com/2/4t0m5.jpg" width="200">
+        <img src="https://i.imgflip.com/2/4t0m5.jpg" width="200">
+        <p>Поздравляю, ты ничего не нашёл!</p>
+    </div>
+    
+    <div id="puzzle-game" class="hidden">
+        <h2>Пазл (шутка, он сломан)</h2>
+        <div id="puzzle-container"></div>
+    </div>
+    
+    <div id="iq-game" class="hidden">
+        <h2>Тест на IQ</h2>
+        <p>Вопрос 1: Сколько будет 2+2?</p>
+        <button onclick="iqAnswer(1)">4</button>
+        <button onclick="iqAnswer(2)">5</button>
+        <button onclick="iqAnswer(3)">Кто я?</button>
+        <p id="iq-result"></p>
+    </div>
+    
+    <audio id="sound" src="sounds/click.mp3"></audio>
+    
+    <script>
+        // Обработчик клика на фото
+        function photoClick(img) {
+            playSound();
+            img.style.transform = "rotate(180deg)";
+            img.style.filter = "grayscale(100%)";
+            setTimeout(() => {
+                alert("Зачем ты это сделал?");
+                img.style.transform = "";
+                img.style.filter = "";
+            }, 1000);
+        }
+        
+        // Мини-игры
+        function startGame(game) {
+            playSound();
+            document.querySelectorAll('.hidden').forEach(el => el.style.display = 'none');
+            document.getElementById(`${game}-game`).style.display = 'block';
+            
+            if (game === 'puzzle') {
+                setTimeout(() => {
+                    alert("Пазл сломался. Как и твои надежды.");
+                }, 2000);
+            }
+        }
+        
+        function iqAnswer(answer) {
+            playSound();
+            const result = document.getElementById('iq-result');
+            if (answer === 3) {
+                result.innerHTML = "Ты гений! (0 баллов)";
+            } else {
+                result.innerHTML = "Неверно! Правильный ответ: 'Кто я?'";
+            }
+        }
+        
+        // Случайные попапы
+        setInterval(() => {
+            if (Math.random() > 0.7) {
+                const popup = confirm("Ты уверен? Ты точно уверен?");
+                if (popup) {
+                    alert("Всё равно не верим!");
+                }
+            }
+        }, 30000);
+        
+        // Звук (должен быть в папке /sounds/)
+        function playSound() {
+            const sound = document.getElementById('sound');
+            sound.currentTime = 0;
+            sound.play().catch(e => console.log("Не удалось проиграть звук (но нам похуй)"));
+        }
+        
+        // Встряхивание телефона
+        if (window.DeviceMotionEvent) {
+            let lastShake = 0;
+            window.addEventListener('devicemotion', (e) => {
+                const acceleration = e.accelerationIncludingGravity;
+                const shake = Math.abs(acceleration.x) + Math.abs(acceleration.y) + Math.abs(acceleration.z);
+                
+                if (shake > 30 && Date.now() - lastShake > 2000) {
+                    lastShake = Date.now();
+                    alert("Тайна: этот сайт — полный пиздец!");
+                }
+            });
+        }
+    </script>
+</body>
+</html>
