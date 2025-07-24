@@ -3,209 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>солевыеальтухиснемиги.com</title>
-    <style>
-        body {
-            font-family: 'Times New Roman', serif;
-            background: linear-gradient(to right, #ff00cc, #33cc33);
-            color: white;
-            text-align: center;
-            margin: 0;
-            padding: 20px;
-            overflow-x: hidden;
-            user-select: none;
-        }
-        
-        h1 {
-            font-size: 3rem;
-            text-shadow: 3px 3px 0 #000;
-            animation: glitch 1s infinite;
-        }
-        
-        .photo-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .photo {
-            width: 150px;
-            height: 150px;
-            object-fit: cover;
-            border: 5px dashed black;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .photo:hover {
-            transform: rotate(10deg) scale(1.1);
-            filter: hue-rotate(90deg);
-        }
-        
-        .game-box {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 15px;
-            border-radius: 10px;
-            margin: 20px auto;
-            max-width: 300px;
-        }
-        
-        button {
-            background: black;
-            color: white;
-            border: none;
-            padding: 10px 20px;
-            margin: 5px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        
-        button:hover {
-            background: #ff00cc;
-            transform: skewX(-10deg);
-        }
-        
-        .hidden {
-            display: none;
-        }
-        
-        @keyframes glitch {
-            0% { transform: translate(0); }
-            20% { transform: translate(-3px, 3px); }
-            40% { transform: translate(-3px, -3px); }
-            60% { transform: translate(3px, 3px); }
-            80% { transform: translate(3px, -3px); }
-            100% { transform: translate(0); }
-        }
-        
-        /* Мобильный адаптив */
-        @media (max-width: 600px) {
-            body {
-                background: linear-gradient(to bottom, #ff00cc, #33cc33);
-            }
-            
-            .photo {
-                width: 100px;
-                height: 100px;
-            }
-            
-            h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <title>Apple Style Website</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>уёбища.com</h1>
-    <p>Добро пожаловать в ебучий учебник!</p>
-    
-    <div class="photo-container">
-        <!-- Твои 5 фото (теперь они локальные, в папке /images/) -->
-        <img src="images/var1.jpg" class="photo" id="var1" onclick="photoClick(this)">
-        <img src="images/var2.jpg" class="photo" id="var2" onclick="photoClick(this)">
-        <img src="images/var3.jpg" class="photo" id="var3" onclick="photoClick(this)">
-        <img src="images/var4.jpg" class="photo" id="var4" onclick="photoClick(this)">
-        <img src="images/var5.jpg" class="photo" id="var5" onclick="photoClick(this)">
-    </div>
-    
-    <div class="game-box">
-        <h3>Мини-игры:</h3>
-        <button onclick="startGame('difference')">Найди 10 отличий</button>
-        <button onclick="startGame('puzzle')">Собери пазл (не получится)</button>
-        <button onclick="startGame('iq')">Тест на IQ</button>
-    </div>
-    
-    <div id="difference-game" class="hidden">
-        <h2>Найди отличия (их нет)</h2>
-        <img src="https://i.imgflip.com/2/4t0m5.jpg" width="200">
-        <img src="https://i.imgflip.com/2/4t0m5.jpg" width="200">
-        <p>Поздравляю, ты ничего не нашёл!</p>
-    </div>
-    
-    <div id="puzzle-game" class="hidden">
-        <h2>Пазл (шутка, он сломан)</h2>
-        <div id="puzzle-container"></div>
-    </div>
-    
-    <div id="iq-game" class="hidden">
-        <h2>Тест на IQ</h2>
-        <p>Вопрос 1: Сколько будет 2+2?</p>
-        <button onclick="iqAnswer(1)">4</button>
-        <button onclick="iqAnswer(2)">5</button>
-        <button onclick="iqAnswer(3)">Кто я?</button>
-        <p id="iq-result"></p>
-    </div>
-    
-    <audio id="sound" src="sounds/click.mp3"></audio>
-    
-    <script>
-        // Обработчик клика на фото
-        function photoClick(img) {
-            playSound();
-            img.style.transform = "rotate(180deg)";
-            img.style.filter = "grayscale(100%)";
-            setTimeout(() => {
-                alert("Зачем ты это сделал?");
-                img.style.transform = "";
-                img.style.filter = "";
-            }, 1000);
-        }
-        
-        // Мини-игры
-        function startGame(game) {
-            playSound();
-            document.querySelectorAll('.hidden').forEach(el => el.style.display = 'none');
-            document.getElementById(`${game}-game`).style.display = 'block';
-            
-            if (game === 'puzzle') {
-                setTimeout(() => {
-                    alert("Пазл сломался. Как и твои надежды.");
-                }, 2000);
-            }
-        }
-        
-        function iqAnswer(answer) {
-            playSound();
-            const result = document.getElementById('iq-result');
-            if (answer === 3) {
-                result.innerHTML = "Ты гений! (0 баллов)";
-            } else {
-                result.innerHTML = "Неверно! Правильный ответ: 'Кто я?'";
-            }
-        }
-        
-        // Случайные попапы
-        setInterval(() => {
-            if (Math.random() > 0.7) {
-                const popup = confirm("Ты уверен? Ты точно уверен?");
-                if (popup) {
-                    alert("Всё равно не верим!");
-                }
-            }
-        }, 30000);
-        
-        // Звук (должен быть в папке /sounds/)
-        function playSound() {
-            const sound = document.getElementById('sound');
-            sound.currentTime = 0;
-            sound.play().catch(e => console.log("Не удалось проиграть звук (но нам похуй)"));
-        }
-        
-        // Встряхивание телефона
-        if (window.DeviceMotionEvent) {
-            let lastShake = 0;
-            window.addEventListener('devicemotion', (e) => {
-                const acceleration = e.accelerationIncludingGravity;
-                const shake = Math.abs(acceleration.x) + Math.abs(acceleration.y) + Math.abs(acceleration.z);
-                
-                if (shake > 30 && Date.now() - lastShake > 2000) {
-                    lastShake = Date.now();
-                    alert("Тайна: этот сайт — полный пиздец!");
-                }
-            });
-        }
-    </script>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <svg class="apple-logo" viewBox="0 0 24 24">
+                    <path d="M12.152 6.896c-.948 0-2.415-1.078-3.96-1.04-2.04.027-3.91 1.183-4.961 3.014-2.117 3.675-.546 9.103 1.519 12.09 1.013 1.454 2.208 3.09 3.792 3.039 1.52-.065 2.09-.987 3.935-.987 1.831 0 2.35.987 3.96.948 1.637-.026 2.676-1.48 3.676-2.948 1.156-1.688 1.636-3.325 1.662-3.415-.039-.013-3.182-1.221-3.22-4.857-.026-3.04 2.48-4.494 2.597-4.559-1.429-2.09-3.623-2.324-4.39-2.376-2-.156-3.675 1.09-4.61 1.09z"/>
+                    <path d="M15.53 3.83c.843-1.012 1.4-2.427 1.245-3.83-1.207.052-2.662.805-3.532 1.818-.78.896-1.454 2.338-1.273 3.714 1.338.104 2.715-.688 3.559-1.701"/>
+                </svg>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="#home" class="nav-link">Главная</a></li>
+                <li><a href="#products" class="nav-link">Продукты</a></li>
+                <li><a href="#features" class="nav-link">Возможности</a></li>
+                <li><a href="#about" class="nav-link">О нас</a></li>
+                <li><a href="#contact" class="nav-link">Контакты</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                <span class="text-reveal">Инновации</span>
+                <span class="text-reveal">в каждой детали</span>
+            </h1>
+            <p class="hero-subtitle">Откройте для себя новый мир возможностей с нашими революционными технологиями</p>
+            <div class="hero-buttons">
+                <button class="btn-primary">Узнать больше</button>
+                <button class="btn-secondary">Посмотреть видео</button>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="floating-card"></div>
+            <div class="floating-card"></div>
+            <div class="floating-card"></div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section id="products" class="products">
+        <div class="container">
+            <h2 class="section-title">Наши продукты</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="card-content">
+                        <div class="card-icon">📱</div>
+                        <h3>iPhone Pro</h3>
+                        <p>Профессиональная камера. Революционный чип. Прочная конструкция.</p>
+                        <button class="learn-more">Подробнее</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="card-content">
+                        <div class="card-icon">💻</div>
+                        <h3>MacBook Air</h3>
+                        <p>Невероятно тонкий. Фантастически быстрый. Феноменально мощный.</p>
+                        <button class="learn-more">Подробнее</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="card-content">
+                        <div class="card-icon">⌚</div>
+                        <h3>Apple Watch</h3>
+                        <p>Ваш незаменимый спутник для здорового образа жизни.</p>
+                        <button class="learn-more">Подробнее</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="features-content">
+                <div class="feature-text">
+                    <h2>Технологии будущего</h2>
+                    <p>Мы создаем продукты, которые меняют мир. Каждая инновация направлена на улучшение вашей жизни.</p>
+                    <ul class="feature-list">
+                        <li>Искусственный интеллект нового поколения</li>
+                        <li>Экологически чистое производство</li>
+                        <li>Беспрецедентная производительность</li>
+                        <li>Интуитивный пользовательский интерфейс</li>
+                    </ul>
+                </div>
+                <div class="feature-visual">
+                    <div class="visual-element"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number" data-target="1000">0</div>
+                    <div class="stat-label">Довольных клиентов</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="50">0</div>
+                    <div class="stat-label">Стран присутствия</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="99">0</div>
+                    <div class="stat-label">% качества</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number" data-target="24">0</div>
+                    <div class="stat-label">Часа поддержки</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact">
+        <div class="container">
+            <h2 class="section-title">Свяжитесь с нами</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <h3>Готовы начать?</h3>
+                    <p>Свяжитесь с нашей командой, чтобы узнать, как наши решения могут помочь вашему бизнесу.</p>
+                    <div class="contact-methods">
+                        <div class="contact-method">
+                            <span class="contact-icon">📧</span>
+                            <span>hello@company.com</span>
+                        </div>
+                        <div class="contact-method">
+                            <span class="contact-icon">📞</span>
+                            <span>+7 (999) 123-45-67</span>
+                        </div>
+                    </div>
+                </div>
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" placeholder="Ваше имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea placeholder="Сообщение" rows="5" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-primary">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Продукты</h4>
+                    <ul>
+                        <li><a href="#">iPhone</a></li>
+                        <li><a href="#">MacBook</a></li>
+                        <li><a href="#">Apple Watch</a></li>
+                        <li><a href="#">iPad</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Поддержка</h4>
+                    <ul>
+                        <li><a href="#">Техподдержка</a></li>
+                        <li><a href="#">Гарантия</a></li>
+                        <li><a href="#">Ремонт</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Компания</h4>
+                    <ul>
+                        <li><a href="#">О нас</a></li>
+                        <li><a href="#">Карьера</a></li>
+                        <li><a href="#">Пресс-центр</a></li>
+                        <li><a href="#">Контакты</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Следите за нами</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Twitter</a>
+                        <a href="#" class="social-link">YouTube</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Company Name. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
 </body>
 </html>
